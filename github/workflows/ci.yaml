@@ -1,0 +1,54 @@
+name: CI Flutter SISPLAY
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    name: Validar, Testear y Compilar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.0'
+
+      - name: 📊 Analyze código
+        run: |
+          echo "::group::Análisis de código"
+          flutter analyze --no-fatal-infos || exit 1
+          echo "::endgroup::"
+
+      - name: 🧪 Validar carpeta de tests
+        run: |
+          echo "::group::Validación de carpeta test/"
+          if [ ! -d test ]; then
+            echo "❌ Error: carpeta 'test/' no encontrada. Abortando build."
+            exit 1
+          fi
+          echo "::endgroup::"
+
+      - name: 🧪 Ejecutar pruebas
+        run: |
+          echo "::group::Ejecución de pruebas"
+          flutter test --reporter expanded || exit 1
+          echo "::endgroup::"
+
+      - name: 🏗️ Compilar APK (debug)
+        run: |
+          echo "::group::Compilación del APK"
+          flutter build apk --debug || exit 1
+          echo "::endgroup::"
+
+      - name: 📦 Subir artefacto .apk
+        uses: actions/upload-artifact@v3
+        with:
+          name: SISPLAY-${{ github.run_number }}-${{ github.ref_name }}
+          path: build/app/outputs/flutter-apk/app-debug.apk
