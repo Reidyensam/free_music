@@ -1,0 +1,6 @@
+Fecha instalación: 2025-08-05  
+Instalador: Curador A  
+Dispositivo: Moto G7  
+Resultado: Éxito  
+Versión: apk_2025_08_05_canary.apk  
+Observaciones: Tags y álbumes se muestran correctamente.  
