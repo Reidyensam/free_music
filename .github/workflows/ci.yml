@@ -8,33 +8,26 @@ on:
 
 jobs:
   build:
-    name: Validar, Testear y Compilar
+    name: Validar, testear y compilar APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout
+      - name: 📥 Descargar código (Checkout)
         uses: actions/checkout@v3
 
-      - name: 🛠️ Setup Flutter
+      - name: 🛠️ Preparar entorno Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.8'
           channel: stable
 
-      - name: 🧰 Parcheo pubspec.yaml para CI/CD
-        run: |
-          echo "::group::Compatibilidad de versión - Parcheo temporal"
-          sed -i 's/flutter_lints: \^6.0.0/flutter_lints: ^2.0.0/g' pubspec.yaml
-          flutter pub get || exit 1
-          echo "::endgroup::"
-
-      - name: 📊 Analyze código
+      - name: 🧠 Análisis estático del código
         run: |
           echo "::group::Análisis de código"
           flutter analyze --no-fatal-infos || exit 1
           echo "::endgroup::"
 
-      - name: 🧪 Validar carpeta de tests
+      - name: 📁 Verificar carpeta de tests
         run: |
           echo "::group::Validación de carpeta test/"
           if [ ! -d test ]; then
@@ -43,19 +36,19 @@ jobs:
           fi
           echo "::endgroup::"
 
-      - name: 🧪 Ejecutar pruebas
+      - name: 🧪 Ejecutar pruebas unitarias
         run: |
           echo "::group::Ejecución de pruebas"
           flutter test --reporter expanded || exit 1
           echo "::endgroup::"
 
-      - name: 🏗️ Compilar APK (debug)
+      - name: 🏗️ Compilar APK (modo debug)
         run: |
           echo "::group::Compilación del APK"
           flutter build apk --debug || exit 1
           echo "::endgroup::"
 
-      - name: 📦 Subir artefacto .apk
+      - name: 📦 Subir artefacto compilado
         uses: actions/upload-artifact@v4
         with:
           name: SISPLAY-${{ github.run_number }}-${{ github.ref_name }}
