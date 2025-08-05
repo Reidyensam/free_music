@@ -1,0 +1,9 @@
+﻿Fecha de validación: 2025-08-05_1343
+Tester: Reidy
+Dispositivo: Xiaomi Redmi Note 11
+
+Validaciones realizadas:
+✔️ Splash screen: Cargó correctamente
+✔️ Login: Acceso sin errores
+✔️ Reproductor: Funcional en dispositivo físico
+✔️ Metadata musical: Persistente y legible

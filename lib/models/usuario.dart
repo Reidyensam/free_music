@@ -12,7 +12,7 @@ class Usuario {
     required this.nombreUsuario,
     required this.rol,
     required this.temaVisual,
-    this.modoOscuro, // 👈 NUEVO
+    this.modoOscuro,
   });
 
   Usuario copyWith({
@@ -21,7 +21,7 @@ class Usuario {
     String? nombreUsuario,
     String? rol,
     String? temaVisual,
-    bool? modoOscuro, // 👈 NUEVO
+    bool? modoOscuro,
   }) {
     return Usuario(
       id: id ?? this.id,

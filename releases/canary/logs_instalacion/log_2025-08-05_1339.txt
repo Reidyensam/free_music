@@ -1,0 +1,6 @@
+﻿Fecha: 2025-08-05_1339
+Artefacto: apk_2025_08_05_canary.apk
+Tester: Reidy
+Dispositivo: Xiaomi Redmi Note 11
+Resultado: Instalación ejecutada correctamente
+Observaciones: El splash screen se cargó sin fallos. Metadata musical se mantuvo intacta.
