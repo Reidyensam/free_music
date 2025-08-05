@@ -18,7 +18,7 @@ jobs:
       - name: 🛠️ Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          flutter-version: '3.32.8'
           channel: stable
 
       - name: 🧰 Parcheo pubspec.yaml para CI/CD
