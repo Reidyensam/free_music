@@ -46,6 +46,15 @@ Proyecto basado en el sistema interno *Free_music*, con enfoque técnico y expre
 - Capturas de logs, `.apk` generado, pruebas ejecutadas
 - Presentación técnica con todos los puntos del proyecto
 
+
+### Eliminación de dependencia innecesaria
+
+Se eliminó `sign_in_with_apple` por no ser requerida en plataforma Android.  
+El proyecto no contempla autenticación por Apple ID.  
+Se limpió el `pubspec.yaml` y se verificó ausencia de imports o referencias en el código fuente.
+
+
+
 ---
 
 Este README puede crecer contigo: podés agregar flujos de usuario, curadurías musicales destacadas o capturas del sistema.
