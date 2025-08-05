@@ -29,7 +29,7 @@ class Usuario {
       nombreUsuario: nombreUsuario ?? this.nombreUsuario,
       rol: rol ?? this.rol,
       temaVisual: temaVisual ?? this.temaVisual,
-      modoOscuro: modoOscuro ?? this.modoOscuro, // 👈 NUEVO
+      modoOscuro: modoOscuro ?? this.modoOscuro, 
     );
   }
 
@@ -50,6 +50,6 @@ class Usuario {
         'nombre_usuario': nombreUsuario,
         'rol': rol,
         'tema_visual': temaVisual,
-        'modo_oscuro': modoOscuro, // 👈 NUEVO
+        'modo_oscuro': modoOscuro,
       };
 }
