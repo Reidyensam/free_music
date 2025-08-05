@@ -24,51 +24,51 @@ class _PantallaGestionUsuariosState
   }
 
   Future<void> _cargarUsuarios() async {
-  setState(() => cargando = true);
+    setState(() => cargando = true);
 
-  try {
-    final respuesta = await ServicioSupabase.cliente
-        .from('usuarios')
-        .select('id, email, nombre_usuario, rol, tema_visual, modo_oscuro')
-        .order('nombre_usuario');
+    try {
+      final respuesta = await ServicioSupabase.cliente
+          .from('usuarios')
+          .select('id, email, nombre_usuario, rol, tema_visual, modo_oscuro')
+          .order('nombre_usuario');
 
-    print('📦 Respuesta cruda Supabase: $respuesta');
+      print('📦 Respuesta cruda Supabase: $respuesta');
 
-    final mapeados = <Usuario>[];
-    for (final entrada in respuesta) {
-      try {
-        final user = Usuario.desdeJson(entrada);
-        print('🪪 ${user.id} – ${user.nombreUsuario} – ${user.rol}');
-        mapeados.add(user);
-      } catch (e) {
-        print('❌ Error mapeando usuario: $entrada\n💥 $e');
+      final mapeados = <Usuario>[];
+      for (final entrada in respuesta) {
+        try {
+          final user = Usuario.desdeJson(entrada);
+          print('🪪 ${user.id} – ${user.nombreUsuario} – ${user.rol}');
+          mapeados.add(user);
+        } catch (e) {
+          print('❌ Error mapeando usuario: $entrada\n💥 $e');
+        }
       }
-    }
 
-    print(
-        '👥 Usuarios mapeados: ${mapeados.map((u) => u.nombreUsuario).join(', ')}');
+      print(
+          '👥 Usuarios mapeados: ${mapeados.map((u) => u.nombreUsuario).join(', ')}');
 
-    if (mounted) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('✅ Usuarios cargados: ${mapeados.length}'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+
+      setState(() {
+        listaUsuarios = mapeados;
+        cargando = false;
+      });
+    } catch (e) {
+      print('❌ Error al cargar usuarios: $e');
+      setState(() => cargando = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('✅ Usuarios cargados: ${mapeados.length}'),
-          duration: const Duration(seconds: 3),
-        ),
+        SnackBar(content: Text('Error al obtener usuarios: $e')),
       );
     }
-
-    setState(() {
-      listaUsuarios = mapeados;
-      cargando = false;
-    });
-  } catch (e) {
-    print('❌ Error al cargar usuarios: $e');
-    setState(() => cargando = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error al obtener usuarios: $e')),
-    );
   }
-}
 
   Future<void> _actualizarRol(String idUsuario, String nuevoRol) async {
     try {
@@ -76,9 +76,7 @@ class _PantallaGestionUsuariosState
           .from('usuarios')
           .update({'rol': nuevoRol}).eq('id', idUsuario);
 
-      final usuario = listaUsuarios.firstWhere(
-        (u) => u.id == idUsuario,
-      );
+      final usuario = listaUsuarios.firstWhere((u) => u.id == idUsuario);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -104,14 +102,15 @@ class _PantallaGestionUsuariosState
     final usuarioActual = ref.read(usuarioProvider);
     print('🧾 ID local desde Provider: ${usuarioActual?.id}');
 
-    final result = await ServicioSupabase.cliente.auth.getUser();
-    print('🔐 Auth UID de sesión: ${result.user?.id}');
+    // Ajustado para SupabaseFlutter ^1.10.x
+    final usuarioSesion = ServicioSupabase.cliente.auth.currentUser;
+    print('🔐 Auth UID de sesión: ${usuarioSesion?.id}');
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            usuarioActual?.id == result.user?.id
+            usuarioActual?.id == usuarioSesion?.id
                 ? '✅ ID y UID coinciden'
                 : '⚠️ ID y UID NO coinciden',
           ),
@@ -161,7 +160,8 @@ class _PantallaGestionUsuariosState
                     title: Text(usuario.nombreUsuario),
                     subtitle: Text(usuario.correo),
                     trailing: esElMismo
-                        ? const Text('Tú', style: TextStyle(color: Colors.grey))
+                        ? const Text('Tú',
+                            style: TextStyle(color: Colors.grey))
                         : ElevatedButton.icon(
                             icon: Icon(esAdmin
                                 ? Icons.remove_moderator_outlined
@@ -193,7 +193,7 @@ class _PantallaGestionUsuariosState
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('¿Confirmás cambiar el rol?'),
+        title: const Text('¿Confirmás cambiar el rol?'),
         content: Text('Vas a $accion a ${usuario.nombreUsuario}. ¿Seguro?'),
         actions: [
           TextButton(
