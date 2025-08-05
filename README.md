@@ -61,8 +61,22 @@ El paquete `go_router ^16.0.0` requería Dart SDK `>=3.1.0`, no compatible con e
 📎 Evidencia técnica: `pubspec.lock`, log de ejecución exitoso y captura funcional de navegación.
 
 
+### Resolución de incompatibilidad: flutter_hooks
 
+Se detectó que `flutter_hooks ^0.21.2` exige una versión pre-release (`>=3.21.0-13.0.pre.4`) del SDK, incompatible con Flutter 3.10.0.  
+🔧 Se bajó la versión a `^0.20.4`, verificada como estable y funcional.  
+📎 Evidencia técnica: `pubspec.lock`, log de resolución, captura funcional de hooks operativos.
 ---
+
+
+### Resolución de conflicto: supabase_flutter
+
+La versión `^2.9.1` requería Dart SDK `>=3.3.0`, incompatible con el entorno actual (3.0.0).  
+🔧 Se bajó a `^1.10.15`, versión estable y funcional confirmada para este entorno.  
+📎 Evidencia técnica: `pubspec.lock`, log de resolución y prueba funcional de conexión Supabase.
+
+
+
 
 Este README puede crecer contigo: podés agregar flujos de usuario, curadurías musicales destacadas o capturas del sistema.
 
