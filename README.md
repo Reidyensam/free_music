@@ -54,6 +54,13 @@ El proyecto no contempla autenticación por Apple ID.
 Se limpió el `pubspec.yaml` y se verificó ausencia de imports o referencias en el código fuente.
 
 
+### Resolución de incompatibilidad: go_router
+
+El paquete `go_router ^16.0.0` requería Dart SDK `>=3.1.0`, no compatible con entorno actual (3.0.0).  
+🔧 Se optó por bajar la versión a `^12.1.3`, confirmada estable y funcional.  
+📎 Evidencia técnica: `pubspec.lock`, log de ejecución exitoso y captura funcional de navegación.
+
+
 
 ---
 
