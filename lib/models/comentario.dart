@@ -4,7 +4,7 @@ class Comentario {
   final String autorId;
   final String texto;
   final DateTime fecha;
-  final String? autorNombre; // 👈 campo opcional para mostrar nombre
+  final String? autorNombre;
 
   Comentario({
     required this.id,
