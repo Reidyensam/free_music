@@ -27,7 +27,7 @@ dependencies:
   webview_flutter_platform_interface: ^2.11.0
   collection: ^1.17.1
   path_provider: ^2.0.11
-  connectivity_plus: ^6.1.4
+  connectivity_plus: ^5.0.2
   just_audio: ^0.9.36
   intl: ^0.18.1
   html: ^0.15.4
