@@ -306,7 +306,7 @@ class _PantallaEditarPlaylistState extends State<PantallaEditarPlaylist> {
 
                 const SizedBox(
                     height:
-                        5), // 👈 Espacio adicional para que “Guardar” no quede abajo
+                        5), 
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
