@@ -41,10 +41,10 @@ class PantallaOffline extends StatelessWidget {
               const SizedBox(height: 16),
               OutlinedButton.icon(
                 onPressed: () {
-                  // Intentar reconectar o mostrar red info
+                
                 },
                 icon: Icon(Icons.wifi),
-                label: Text('Reintentar conexión'),
+                label: Text('Reintentar la conexión'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
                   side: BorderSide(color: Colors.white),
